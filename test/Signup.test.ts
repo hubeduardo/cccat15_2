@@ -24,10 +24,10 @@ test("Deve criar a conta de um passageiro", async function () {
 	const outputSignup = await signup.execute(input);
 	expect(outputSignup.accountId).toBeDefined();
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
-	expect(outputGetAccount.name).toBe(input.name);
-	expect(outputGetAccount.email).toBe(input.email);
-	expect(outputGetAccount.cpf).toBe(input.cpf);
-	expect(outputGetAccount.is_passenger).toBe(input.isPassenger);
+	expect(outputGetAccount?.name).toBe(input.name);
+	expect(outputGetAccount?.email).toBe(input.email);
+	expect(outputGetAccount?.cpf).toBe(input.cpf);
+	expect(outputGetAccount?.isPassenger).toBe(input.isPassenger);
 });
 
 test("Deve criar a conta de um motorista", async function () {
@@ -41,10 +41,10 @@ test("Deve criar a conta de um motorista", async function () {
 	const outputSignup = await signup.execute(input);
 	expect(outputSignup.accountId).toBeDefined();
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
-	expect(outputGetAccount.name).toBe(input.name);
-	expect(outputGetAccount.email).toBe(input.email);
-	expect(outputGetAccount.cpf).toBe(input.cpf);
-	expect(outputGetAccount.is_driver).toBe(input.isDriver);
+	expect(outputGetAccount?.name).toBe(input.name);
+	expect(outputGetAccount?.email).toBe(input.email);
+	expect(outputGetAccount?.cpf).toBe(input.cpf);
+	expect(outputGetAccount?.isDriver).toBe(input.isDriver);
 });
 
 test("Não deve criar um passageiro se o nome for inválido", async function () {
@@ -108,13 +108,13 @@ test("Deve criar a conta de um passageiro stub", async function () {
 	};
 	const saveStub = sinon.stub(AccountDAODatabase.prototype, "save").resolves();
 	const getByEmailStub = sinon.stub(AccountDAODatabase.prototype, "getByEmail").resolves();
-	const getByIdStub = sinon.stub(AccountDAODatabase.prototype, "getById").resolves(input);
+	const getByIdStub = sinon.stub(AccountDAODatabase.prototype, "getById").resolves();
 	const outputSignup = await signup.execute(input);
 	expect(outputSignup.accountId).toBeDefined();
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
-	expect(outputGetAccount.name).toBe(input.name);
-	expect(outputGetAccount.email).toBe(input.email);
-	expect(outputGetAccount.cpf).toBe(input.cpf);
+	expect(outputGetAccount?.name).toBe(input.name);
+	expect(outputGetAccount?.email).toBe(input.email);
+	expect(outputGetAccount?.cpf).toBe(input.cpf);
 	saveStub.restore();
 	getByEmailStub.restore();
 	getByIdStub.restore();
@@ -132,9 +132,9 @@ test("Deve criar a conta de um passageiro spy", async function () {
 	const outputSignup = await signup.execute(input);
 	expect(outputSignup.accountId).toBeDefined();
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
-	expect(outputGetAccount.name).toBe(input.name);
-	expect(outputGetAccount.email).toBe(input.email);
-	expect(outputGetAccount.cpf).toBe(input.cpf);
+	expect(outputGetAccount?.name).toBe(input.name);
+	expect(outputGetAccount?.email).toBe(input.email);
+	expect(outputGetAccount?.cpf).toBe(input.cpf);
 	expect(saveSpy.calledOnce).toBe(true);
 	expect(saveSpy.calledWith(input)).toBe(true);
 	expect(sendSpy.calledOnce).toBe(true);
@@ -155,9 +155,9 @@ test("Deve criar a conta de um passageiro mock", async function () {
 	const outputSignup = await signup.execute(input);
 	expect(outputSignup.accountId).toBeDefined();
 	const outputGetAccount = await getAccount.execute(outputSignup.accountId);
-	expect(outputGetAccount.name).toBe(input.name);
-	expect(outputGetAccount.email).toBe(input.email);
-	expect(outputGetAccount.cpf).toBe(input.cpf);
+	expect(outputGetAccount?.name).toBe(input.name);
+	expect(outputGetAccount?.email).toBe(input.email);
+	expect(outputGetAccount?.cpf).toBe(input.cpf);
 	mailerGatewayMock.verify();
 	mailerGatewayMock.restore();
 });
