@@ -1,7 +1,7 @@
 import crypto from "crypto";
-import { validateCpf } from "./validateCpf";
-import AccountDAO, { AccountDAODatabase } from "./AccountDAO";
-import MailerGateway from "./MailerGateway";
+import { validateCpf } from "../validateCpf";
+import AccountDAO, { AccountDAODatabase } from "../AccountDAO";
+import MailerGateway from "../MailerGateway";
 
 export default class Signup {
 	// Port

@@ -1,7 +1,7 @@
 import AccountDAO, { AccountDAODatabase, AccountDAOMemory } from "../src/AccountDAO";
-import GetAccount from "../src/GetAccount";
+import GetAccount from "../src/usecase/GetAccount";
 import MailerGateway from "../src/MailerGateway";
-import Signup from "../src/Signup";
+import Signup  from "../src/usecase/Signup";
 import sinon from "sinon";
 
 let signup: Signup;

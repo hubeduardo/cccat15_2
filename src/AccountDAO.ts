@@ -1,10 +1,11 @@
 import pgp from "pg-promise";
+import Account from "./Account";
 
 // Port
 export default interface AccountDAO {
 	save (account: any): Promise<void>;
-	getByEmail (email: string): Promise<any>;
-	getById (accountId: string): Promise<any>;
+	getByEmail (email: string): Promise<Account | undefined>;
+	getById (accountId: string): Promise<Account | undefined>;
 }
 
 // Adapter Database
@@ -15,18 +16,20 @@ export class AccountDAODatabase implements AccountDAO {
 		await connection.$pool.end();
 	}
 
-	async getByEmail (email: string) {
+	async getByEmail (email: string): Promise<Account | undefined> {
 		const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
 		const [account] = await connection.query("select * from cccat15.account where email = $1", [email]);
 		await connection.$pool.end();
-		return account;
+		if (!account) return undefined;
+		return Account.restore(account.account_id, account.name, account.email, account.cpf, account.car_plate, account.is_passenger, account.is_driver);
 	}
 
-	async getById (accountId: string) {
+	async getById (accountId: string): Promise<Account | undefined> {
 		const connection = pgp()("postgres://postgres:123456@localhost:5432/app");
 		const [account] = await connection.query("select * from cccat15.account where account_id = $1", [accountId]);
 		await connection.$pool.end();
-		return account;
+		if (!account) return undefined;
+		return Account.restore(account.account_id, account.name, account.email, account.cpf, account.car_plate, account.is_passenger, account.is_driver);
 	}
 }
 
